@@ -10,7 +10,7 @@ import { styles } from './button.style';
 export function Button({title, ...props}: IButton){
   return(
     <TouchableOpacity activeOpacity={0.8} style={styles.button} {...props}>
-      <Text> {title} </Text>
+      <Text style={styles.text}> {title} </Text>
     </TouchableOpacity>
   );
 }
