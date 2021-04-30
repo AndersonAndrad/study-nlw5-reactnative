@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {SafeAreaView, Text, View, TextInput, Platform, KeyboardAvoidingView} from 'react-native';
 
@@ -8,6 +9,12 @@ import { Button } from '../../components/button/button.compopnent';
 import { styles } from './styles';
 
 export function UserIndetification(){
+  const { navigate } = useNavigation();
+
+  function navigateToConfirm(){
+    navigate('confirmation');
+  }
+
   return(
     <SafeAreaView style={styles.container}>
         <View style={styles.header}>
@@ -19,7 +26,7 @@ export function UserIndetification(){
           <TextInput style={styles.input} placeholder='Digite seu nome'/>
         </View>
         <View style={styles.footer}>
-          <Button title='Confirmar' />
+          <Button title='Confirmar' onPress={() => navigateToConfirm()} />
         </View>
     </SafeAreaView>
   )

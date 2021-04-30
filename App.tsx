@@ -2,9 +2,8 @@ import React from 'react';
 import {  useFonts, Roboto_400Regular, Roboto_700Bold  } from '@expo-google-fonts/roboto';
 import ExpoLoaded from 'expo-app-loading';
 
-// pages
-import { Welcome } from './src/pages/welcome';
-import { UserIndetification } from './src/pages/userIndentification';
+// routes
+import Routes from './src/routes';
 
 export default function App() {
   const [ fontsLoaded ] = useFonts({
@@ -17,6 +16,6 @@ export default function App() {
   }
 
   return (
-    <UserIndetification/>
+    <Routes/>
   );  
 }

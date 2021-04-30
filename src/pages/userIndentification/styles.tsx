@@ -40,6 +40,6 @@ export const styles = StyleSheet.create({
   },
 
   footer:{
-    width: '70%'
+    width: '50%'
   }
 })
