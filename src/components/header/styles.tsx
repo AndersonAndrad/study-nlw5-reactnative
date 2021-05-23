@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: getStatusBarHeight(),
     backgroundColor: colors.background,
-    padding: 20
+    paddingTop: 20
   },
 
   getting: {
