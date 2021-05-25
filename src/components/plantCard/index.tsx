@@ -1,17 +1,18 @@
 // dependences
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+
+// interfaces
+import { IPlantCardProps } from './plantCard.interface';
 
 // styles
 import { styles } from './styles';
 
-export function PlantCard(){
+export function PlantCard({ data, ...rest}: IPlantCardProps){
   return(
-    <View>
-      <Text>The card button</Text>
-    </View>
+    <RectButton style={styles.container} {...rest}>
+      <Text style={styles.name}>{data.name}</Text>
+    </RectButton>
   )
 }
-
-//TODO: terminate create the component PlantCard 
-//TODO: the video minute at is 56 minutes

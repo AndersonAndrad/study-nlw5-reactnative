@@ -7,11 +7,12 @@ import { useNavigation } from '@react-navigation/native';
 import { api } from '../../services/api.service';
 
 // interfaces
-import { IEnviromentProps } from './plantSelect.interface';
+import { IEnviromentProps, IPlantProps } from './plantSelect.interface';
 
 // components shared
 import { Header } from '../../components/header';
 import { EnvironmentButton } from '../../components/environmentButton';
+import { PlantCard } from '../../components/plantCard';
 
 // style
 import { styles } from './styles';
@@ -19,7 +20,8 @@ import { styles } from './styles';
 export function PlantSelect(){
   const { navigate } = useNavigation();
   const [ environments, setEnvironments ] = useState<IEnviromentProps[]>([]);
- 
+  const [ plants, setPlants ] = useState<IPlantProps[]>([]);
+
   useEffect(() => {
     async function fetchEnvironments(){
       const { data } = await api.get('plants_environments');
@@ -28,6 +30,13 @@ export function PlantSelect(){
         ...data
       ])
     }
+
+    async function fetchPlants(){
+      const { data } = await api.get('plants');
+      setPlants(data);
+    }
+
+    fetchPlants();
     fetchEnvironments();
   },[]);
 
@@ -52,3 +61,6 @@ export function PlantSelect(){
     </View>
   );
 }
+
+//TODO:implements the plants card, bug not permite slide the list
+//TODO: Video time 1hour and 6minutes
