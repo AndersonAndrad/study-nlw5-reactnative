@@ -58,6 +58,15 @@ export function PlantSelect(){
         />
       </View>
 
+      <View>
+        <FlatList
+          data={plants}
+          renderItem={({ item }) => (<PlantCard data={{name: item.name, photo: item.photo}}/>)}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+
     </View>
   );
 }
