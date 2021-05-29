@@ -1,4 +1,4 @@
-export interface IEnviromentProps {
+export interface IEnvironmentsProps {
   key: string;
   title: string;
 }

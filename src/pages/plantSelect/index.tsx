@@ -7,26 +7,30 @@ import { useNavigation } from '@react-navigation/native';
 import { api } from '../../services/api.service';
 
 // interfaces
-import { IEnviromentProps, IPlantProps } from './plantSelect.interface';
+import { IEnvironmentsProps, IPlantProps } from './plantSelect.interface';
 
 // components shared
 import { Header } from '../../components/header';
 import { EnvironmentButton } from '../../components/environmentButton';
 import { PlantCard } from '../../components/plantCard';
+import { Load } from '../../components/load';
 
 // style
 import { styles } from './styles';
 
 export function PlantSelect(){
   const { navigate } = useNavigation();
-  const [ environments, setEnvironments ] = useState<IEnviromentProps[]>([]);
+  const [ environments, setEnvironments ] = useState<IEnvironmentsProps[]>([]);
+  const [ environmentSelected, setEnvironmentSelected ] = useState('all');
   const [ plants, setPlants ] = useState<IPlantProps[]>([]);
+  const [ filteredPlants, setFilteredPlants ] = useState<IPlantProps[]>([]);
+  const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
     async function fetchEnvironments(){
       const { data } = await api.get('plants_environments');
       setEnvironments([
-        { key: 'all', title: 'Todos' },
+        { key: 'all', title: 'all' },
         ...data
       ])
     }
@@ -38,7 +42,24 @@ export function PlantSelect(){
 
     fetchPlants();
     fetchEnvironments();
+    setLoading(false);
   },[]);
+
+  function handleEnvironmentSelected(environment: string){
+    setEnvironmentSelected(environment);
+
+    if(environment === 'all'){
+      return setFilteredPlants(plants);
+    }
+
+    const filtered = plants.filter(plant => 
+      plant.environments.includes(environment)
+    );
+
+    setFilteredPlants(filtered);
+  }
+
+  if(loading){return(<Load/>)}
 
   return(
     <View style={styles.container}>
@@ -50,7 +71,11 @@ export function PlantSelect(){
         <FlatList
           data={environments}
           renderItem={({ item }) => (
-            <EnvironmentButton title={item.title} active={false}/>
+            <EnvironmentButton 
+              title={item.title} 
+              active={item.key === environmentSelected}
+              onPress={() => handleEnvironmentSelected(item.key)}
+            />
           )}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -60,10 +85,11 @@ export function PlantSelect(){
 
       <View>
         <FlatList
-          data={plants}
+          data={filteredPlants}
           renderItem={({ item }) => (<PlantCard data={{name: item.name, photo: item.photo}}/>)}
           numColumns={2}
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.contentContainerStyle}
         />
       </View>
 
@@ -71,5 +97,4 @@ export function PlantSelect(){
   );
 }
 
-//TODO:implements the plants card, bug not permite slide the list
-//TODO: Video time 1hour and 6minutes
+//TODO: Video time 1hour and 26minutes

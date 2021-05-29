@@ -35,5 +35,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 32,
     justifyContent: 'center',
+  },
+
+  contentContainerStyle: {
+    
   }
 })
