@@ -36,7 +36,7 @@ export function PlantSelect(){
     }
 
     async function fetchPlants(){
-      const { data } = await api.get('plants');
+      const { data } = await api.get('plants', {params: {_limit: 10}});
       setPlants(data);
     }
 
@@ -97,4 +97,4 @@ export function PlantSelect(){
   );
 }
 
-//TODO: Video time 1hour and 26minutes
+//TODO: missing add load plants as the user is requesting
